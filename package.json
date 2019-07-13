@@ -1,0 +1,24 @@
+{
+  "name": "car-parking",
+  "version": "1.0.0",
+  "description": "Car Parking system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abusayadhussain/CarParking.git"
+  },
+  "author": "Abu Sayad Hussain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abusayadhussain/CarParking/issues"
+  },
+  "homepage": "https://github.com/abusayadhussain/CarParking#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1"
+  }
+}
