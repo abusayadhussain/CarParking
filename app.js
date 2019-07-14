@@ -1,20 +1,14 @@
 var express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),
-    mongoose   = require("mongoose");
+    mongoose   = require("mongoose"),
+    Car        = require("./models/car");
 
 mongoose.connect('mongodb://localhost:27017/car_parking', {useNewUrlParser: true});    
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-//Schema Setup
-var carSchema = new mongoose.Schema({
-    name: String,
-    model: String,
-    license : String
-});
 
-var Car = mongoose.model("car", carSchema);
 
 // car.create({
 //     name: "Hyundai", 
