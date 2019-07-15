@@ -1,9 +1,23 @@
 <% include partials/header %>
 
-<h1><%= car.name %></h1>
-
-<p> <%= car.model %></p>
-
-<p><%= car.license %></p>
+<div class="col-md-9">
+    <div class="thumbnail">
+        <img class="img-responsive" src="https://image.shutterstock.com/image-illustration/fully-booked-stamp-isolated-on-260nw-1310239924.jpg">
+        <div class="caption-full">
+            
+            <h4>Car Name: <a><%= car.name %></a></h4>
+            <p>Car Model: <%= car.model %></p>
+            <p>Licence Number: <%= car.license %></p>
+            <p>
+                <em>Car is parked by: <%= car.owner.username %></em>
+            </p>
+            <% if(currentUser && car.owner.id.equals(currentUser._id)){ %>
+                <a class="btn btn-xs btn-warning" href="/cars/<%= car._id %>/edit">Edit</a>
+                <form class="delete-form" action="/campgrounds/<%= car._id%>?_method=DELETE" method="POST">
+                    <Button class="btn btn-xs btn-danger">Retrieve</Button>
+                </form>
+                <% } %>
+        </div>
+    </div>
 
 <% include partials/footer %>
