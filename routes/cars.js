@@ -53,11 +53,60 @@ router.get("/cars/:id", function(req, res){
     
 });
 
+//Edit route
+router.get("/cars/:id/edit", checkCarOwnership, function(req,res){
+    Car.findById(req.params.id, function(err, foundCar){
+        res.render("edit", {car: foundCar});
+            });
+
+//Update route
+router.put("/cars/:id", checkCarOwnership, function(req, res){
+    Car.findByIdAndUpdate(req.params.id, req.body.car, function(err, updatedCar){
+        if(err){
+            res.redirect("/cars");
+        } else{
+            res.redirect("/cars/" + req.params.id);
+        }
+    });
+});
+
+//Delete Route
+router.delete("/cars/:id", checkCarOwnership, function(req,res){
+    Car.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/cars");
+        } else{
+            res.redirect("/cars");
+        }
+    })
+});
+
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
         return next();
     }
     res.redirect("/login");
+}
+
+function checkCarOwnership(req,res,next){
+    if(req.isAuthenticated()){
+        
+        Car.findById(req.params.id, function(err, foundCar){
+            if(err){
+                res.redirect("back");
+            }else{
+                //does user own the car?
+                if(foundCar.owner._id.equals(rq.user._id)){
+                   next();
+                } else{
+                    res.redirect("back");
+                }
+                
+            }
+        });
+    }else{
+        res.redirect("back");
+    }
 }
 
 module.exports = router;

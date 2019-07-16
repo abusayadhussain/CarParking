@@ -5,7 +5,8 @@ var express       = require("express"),
     Car           = require("./models/car"),
     passport      = require("passport"),
     LocalStrategy = require("passport-local"),
-    User          = require("./models/user");
+    User          = require("./models/user"),
+    methodOverride= require("method-override");
 
 var carRoutes   = require("./routes/cars"),
     indexRoutes = require("./routes/index");
@@ -13,6 +14,8 @@ var carRoutes   = require("./routes/cars"),
 mongoose.connect('mongodb://localhost:27017/car_parking', {useNewUrlParser: true});    
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+app.use(methodOverride("_method"));
+app.use(express.static(__dirname + "/public"));
 
 //Passport Configuration
 app.use(require("express-session")({
