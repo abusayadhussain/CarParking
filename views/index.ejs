@@ -4,9 +4,17 @@
         <div class="container">
                 <h1> Parked Cars </h1>
                 <p>If there is no more than 20 cars parked in the parking slot you can enter your car here...</p>
+                
+                <% if( count < 20){ %>
                 <p>
-                    <a class="btn btn-primary btn-large" href="/cars/new"> Enter a new car entry</a>
+                   <a class="btn btn-primary btn-large" href="/cars/new"> Enter a new car entry</a>
                 </p>
+                <% }  else{ %>
+                    <p>
+                            <a class="isDisabled" class="btn btn-primary btn-large" href="/cars/new"> Parking is full</a>
+                    </p>
+                 <% } %>
+
         </div>
         
     </header>
@@ -14,13 +22,18 @@
     
     
     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+            
             <% cars.forEach(function(car){ %>
+                
                 <div class="col-md-3 col-sm-6 ">
                     <div class="thumnail">
                             <img src="https://image.shutterstock.com/image-illustration/fully-booked-stamp-isolated-on-260nw-1310239924.jpg">
                             <div class="caption">
+                                    
                                     <h4> <%= car.name %> </h4>
                                     <h4> <%= car.model %> </h4>
+                                  
+                                    
                             </div>
                             <p>
                                 <a href="/cars/<%= car._id %>" class="btn btn-primary">More Info!</a>

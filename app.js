@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
+app.locals.moment = require('moment');
 
 //Passport Configuration
 app.use(require("express-session")({

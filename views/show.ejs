@@ -4,13 +4,23 @@
     <div class="thumbnail">
         <img class="img-responsive" src="https://image.shutterstock.com/image-illustration/fully-booked-stamp-isolated-on-260nw-1310239924.jpg">
         <div class="caption-full">
+            <% var count = 20; %>
+            <% var time = (moment.duration().hours()+1); %>
+            <% if( time <= 1){ %>
+            <h4 class="pull-right">Tk.<%= count %> is charged </h4>
+            <% } else if(time >1 && time < 24) { %>
+                <% count += 5; %>
+                <h4 class="pull-right">Tk.<%= count %> is charged </h4>
+            <% } %>
             
+                
+                
             <h4>Car Name: <a><%= car.name %></a></h4>
             <p>Car Model: <%= car.model %></p>
             <p>Licence Number: <%= car.license %></p>
             <p>
-                <em>Car is parked by: <%= car.owner.username %></em>
-            </p>
+                <em>Car is parked by: <%= car.owner.username %>, <%= moment(car.createdAt).fromNow() %></em>
+              </p>
             <% if(currentUser && car.owner.id.equals(currentUser._id)){ %>
                 <a class="btn btn-xs btn-warning" href="/cars/<%= car._id %>/edit">Edit</a>
                 <form class="delete-form" action="/cars/<%= car._id%>?_method=DELETE" method="POST">

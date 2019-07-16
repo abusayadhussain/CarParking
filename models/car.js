@@ -5,6 +5,7 @@ var carSchema = new mongoose.Schema({
     name: String,
     model: String,
     license : String,
+    createdAt: { type: Date, default: Date.now},
     owner: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -13,5 +14,11 @@ var carSchema = new mongoose.Schema({
         username: String
     }
 });
+
+carSchema.statics.getTotalCars = function(){
+    return this.aggregate([
+        {$count: "carCount"}
+    ]);
+}
 
 module.exports = mongoose.model("car", carSchema);

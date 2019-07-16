@@ -9,10 +9,15 @@ router.get("/cars", function(req, res){
         if(err){
             console.log(err);
         } else{
-            res.render("index", {cars:allCars});
+            Car.countDocuments({}, function(err, countedCars){
+                if(err){
+                    console.log(err);
+                } else{
+                    res.render("index", {cars:allCars, count: countedCars});
+                }
+            });
         }
     });
-    
 });
 
 router.post("/cars", isLoggedIn, function(req,res){
@@ -48,16 +53,18 @@ router.get("/cars/:id", function(req, res){
             console.log(err);
         } else{
             res.render("show", {car:foundCar});
-        }
+            }
+        
     })
     
 });
 
 //Edit route
-router.get("/cars/:id/edit", checkCarOwnership, function(req,res){
-    Car.findById(req.params.id, function(err, foundCar){
-        res.render("edit", {car: foundCar});
-            });
+router.get("/cars/:id/edit", checkCarOwnership, function(req, res) {
+    Car.findById(req.params.id, function(err, foundcar){
+             res.render("edit", {car: foundcar});
+        });
+    });
 
 //Update route
 router.put("/cars/:id", checkCarOwnership, function(req, res){
@@ -96,7 +103,7 @@ function checkCarOwnership(req,res,next){
                 res.redirect("back");
             }else{
                 //does user own the car?
-                if(foundCar.owner._id.equals(rq.user._id)){
+                if(foundCar.owner.id.equals(req.user._id)){
                    next();
                 } else{
                     res.redirect("back");
