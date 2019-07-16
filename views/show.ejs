@@ -5,13 +5,14 @@
         <img class="img-responsive" src="https://image.shutterstock.com/image-illustration/fully-booked-stamp-isolated-on-260nw-1310239924.jpg">
         <div class="caption-full">
             <% var count = 20; %>
-            <% var time = (moment.duration().hours()+1); %>
+            <% setTimeout(function(){ %>
+            <% for(var time = 0; time < 24; time++){ %>
             <% if( time <= 1){ %>
             <h4 class="pull-right">Tk.<%= count %> is charged </h4>
             <% } else if(time >1 && time < 24) { %>
                 <% count += 5; %>
                 <h4 class="pull-right">Tk.<%= count %> is charged </h4>
-            <% } %>
+            <% } } }), 1000* 3600%>
             
                 
                 
